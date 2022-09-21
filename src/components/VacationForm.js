@@ -18,24 +18,22 @@ export default function VacationForm() {
 	};
 
 	return (
-		<>
-			<form>
-				<label>Add a new vacation: </label>
-				<input
-					value={vacationName}
-					onChange={event => {
-						event.preventDefault();
-						setVacationName(event.target.value);
-					}}
-					type="text"
-					name="newVacation"
-					placeholder="ex. Sweden 2022"
-					required
-				/>
-				<button type="submit" onClick={() => handleVacationAdd()}>
-					Add
-				</button>
-			</form>
-		</>
+		<form>
+			<label>Add a new vacation: </label>
+			<input
+				value={vacationName}
+				onChange={event => {
+					event.preventDefault();
+					setVacationName(event.target.value);
+				}}
+				type="text"
+				name="newVacation"
+				placeholder="ex. Sweden 2022"
+				required
+			/>
+			<button type="submit" onClick={() => handleVacationAdd()}>
+				Add
+			</button>
+		</form>
 	);
 }
