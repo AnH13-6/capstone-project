@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 import EntryForm from '../components/EntryForm';
 import VacationForm from '../components/VacationForm';
-import Vacations from '../components/vacations';
+import Vacations from '../components/Vacations';
 
 export default function HomePage() {
 	return (
