@@ -1,12 +1,12 @@
 import {nanoid} from 'nanoid';
 import create from 'zustand';
 
-const vacationStore = set => ({
+let vacationStore = set => ({
 	vacations: [
 		{
 			vacationName: 'Italy 2021',
 			id: nanoid(),
-			entries: [],
+			entries: [{text: 'Test Entry', id: nanoid(), date: 'date'}],
 		},
 		{
 			vacationName: 'Japan 2015',
@@ -22,6 +22,12 @@ const vacationStore = set => ({
 	removeVacation: vacationId => {
 		set(state => ({
 			vacations: state.vacations.filter(vacation => vacation.id !== vacationId),
+		}));
+	},
+
+	handleEntryAdd: vacation => {
+		set(state => ({
+			vacations: [{vacation, ...state.vacations.entries, entries: event.target.value}],
 		}));
 	},
 });

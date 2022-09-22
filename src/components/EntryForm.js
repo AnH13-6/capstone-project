@@ -1,23 +1,39 @@
 import useVacationStore from '../hooks/useVacationStore';
 
 export default function EntryForm() {
-	const {vacations} = useVacationStore();
+	const {vacations, handleEntryAdd} = useVacationStore();
 
 	return (
-		<form>
-			<label htmlFor="vacation-select">Choose a vacation: </label>
-			<select name="vacations" id="vacation-select">
-				{vacations.map(vacation => (
-					<option key="vacationSelect" value={vacations.vacationName} required>
-						{vacation.vacationName}
-					</option>
-				))}
-			</select>
-			<label>Date: </label>
-			<input type="date" name="date" required />
-			<label htmlFor="text-entry">Diary entry: </label>
-			<textarea id="text-entry" name="entry" placeholder="Today I ..."></textarea>
-			<button type="submit">Save</button>
-		</form>
+		<>
+			<form
+				onSubmit={event => {
+					event.preventDefault();
+					const formData = new FormData(event.target);
+					const formValues = Object.fromEntries(formData);
+					{
+						handleEntryAdd(formValues);
+					}
+				}}
+			>
+				<label htmlFor="date">Date: </label>
+				<input type="date" name="date" id="date" required value={vacations.entries.date} />
+				<label htmlFor="text-entry">Diary entry: </label>
+				<textarea
+					id="text-entry"
+					name="entry"
+					value={vacations.entries.text}
+					placeholder="Today I ..."
+					rows="15"
+					cols="40"
+				></textarea>
+				<button type="submit">Save</button>
+			</form>
+			<ul>
+				<li>
+					{vacations.entries.date}
+					{vacations.entries.text}
+				</li>
+			</ul>
+		</>
 	);
 }
