@@ -1,16 +1,16 @@
-import {nanoid} from 'nanoid';
+import produce from 'immer';
 import create from 'zustand';
 
 const vacationStore = set => ({
 	vacations: [
 		{
 			vacationName: 'Italy 2021',
-			id: nanoid(),
-			entries: [],
+			id: 'vacation1',
+			entries: [{text: 'Test Entry', date: 'date'}],
 		},
 		{
 			vacationName: 'Japan 2015',
-			id: nanoid(),
+			id: 'vacation2',
 			entries: [],
 		},
 	],
@@ -24,6 +24,19 @@ const vacationStore = set => ({
 			vacations: state.vacations.filter(vacation => vacation.id !== vacationId),
 		}));
 	},
+
+	updateVacation: vacation =>
+		set(
+			produce(draft => {
+				console.log(vacation);
+				const vacationToUpdate = draft.vacations.find(
+					element => element.id === vacation.id
+				);
+				console.log('in updateVacation:');
+				console.log(vacationToUpdate);
+				vacationToUpdate.entries.push({date: vacation.date, text: vacation.entry});
+			})
+		),
 });
 
 const useVacationStore = create(vacationStore);
